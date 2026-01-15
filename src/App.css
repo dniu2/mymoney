@@ -201,3 +201,16 @@ button:hover { transform: scale(1.05); }
   .expense-card, .goal-card, .budget-card { width: 100%; }
   .chart-toggle { flex-direction: column; }
 }
+
+.ryan-picture {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.9;
+}
