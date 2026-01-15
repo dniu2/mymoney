@@ -1,0 +1,203 @@
+/* Theme colors */
+:root {
+  --bg-light: #f9f9f9;
+  --bg-dark: #1e1e1e;
+  --card-light: #ffffff;
+  --card-dark: #2a2a2a;
+  --accent: linear-gradient(90deg, #0088FE, #00C49F);
+  --text-light: #000;
+  --text-dark: #eee;
+  --hover-light: #e0e0e0;
+  --hover-dark: #333;
+}
+
+/* App container */
+.app-container {
+  padding: 20px;
+  padding-bottom: 80px; /* for bottom tabs */
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.app-container.light { background: var(--bg-light); color: var(--text-light); }
+.app-container.dark { background: var(--bg-dark); color: var(--text-dark); }
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--accent);
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* Settings overlay */
+.settings-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: 999;
+}
+.settings-overlay.open { display: block; }
+
+/* Settings Panel */
+.settings-panel {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  max-width: 80%;
+  height: 100%;
+  background: var(--card-light);
+  box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+  padding: 20px;
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  border-radius: 10px 0 0 10px;
+}
+.app-container.dark .settings-panel { background: var(--card-dark); }
+.settings-panel.open { right: 0; }
+
+/* Buttons */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: all 0.2s ease-in-out;
+}
+button:hover { transform: scale(1.05); }
+.add-btn { background: #0088FE; color: white; }
+.delete-btn { background: #FF4C4C; color: white; }
+.undo-btn { background: #FFBB28; color: white; }
+
+/* Inputs */
+.input-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.input-section input, .input-section select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  transition: border 0.2s ease-in-out;
+}
+.input-section input:focus, .input-section select:focus { border-color: #0088FE; outline: none; }
+
+/* Expense list */
+.expense-list { list-style: none; padding: 0; margin: 10px 0; }
+.expense-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--card-light);
+  color: inherit;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+.app-container.dark .expense-card { background: var(--card-dark); }
+.expense-card:hover { transform: translateY(-2px); }
+.expense-buttons { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+
+/* Goals */
+.goal-card {
+  background: var(--card-light);
+  color: inherit;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.app-container.dark .goal-card { background: var(--card-dark); }
+.progress-bar {
+  width: 100%;
+  height: 15px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 0;
+  transition: width 1s ease-in-out;
+}
+
+/* Budgets */
+.budgets-section { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+.budget-card {
+  background: var(--card-light);
+  padding: 15px;
+  border-radius: 10px;
+  flex: 1 1 150px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app-container.dark .budget-card { background: var(--card-dark); }
+.over-budget { color: red; font-weight: bold; }
+
+/* Chart toggle */
+.chart-toggle { margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Contributed label */
+.contributed { font-weight: bold; color: green; margin-left: 5px; }
+
+/* Reset button */
+.reset-btn { background: #FF4C4C; color: white; margin-top: 20px; padding: 10px; border-radius: 5px; }
+
+/* Collapsible categories */
+.category-section { margin-bottom: 15px; border: 1px solid #ccc; border-radius: 10px; overflow: hidden; }
+.category-header {
+  background: var(--accent);
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.category-header:hover { opacity: 0.9; }
+
+/* Bottom Tabs */
+.bottom-tabs {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  border-top: 1px solid #ccc;
+  background: var(--card-light);
+}
+.app-container.dark .bottom-tabs { background: var(--card-dark); border-top: 1px solid #555; }
+.bottom-tabs button {
+  flex: 1;
+  padding: 15px;
+  font-weight: bold;
+  background: none;
+  border-radius: 0;
+}
+.bottom-tabs button.active {
+  background: var(--accent);
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .input-section { flex-direction: column; }
+  .budgets-section { flex-direction: column; }
+  .expense-card, .goal-card, .budget-card { width: 100%; }
+  .chart-toggle { flex-direction: column; }
+}
