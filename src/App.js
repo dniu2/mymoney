@@ -210,7 +210,7 @@ function App() {
     <div className={`app-container ${theme}`}>
       {/* Header */}
       <header>
-        <h1>💰 MyMoneyOS v5</h1>
+        <h1>💰 DERRICK GOATED WEBSITE</h1>
         <button className="settings-button" onClick={() => setSettingsOpen(true)}>⚙️</button>
       </header>
 
