@@ -201,18 +201,3 @@ button:hover { transform: scale(1.05); }
   .expense-card, .goal-card, .budget-card { width: 100%; }
   .chart-toggle { flex-direction: column; }
 }
-
-/* -------------------- Ryan Picture -------------------- */
-.ryan-picture {
-  position: fixed;      /* stays visible even when scrolling */
-  right: 20px;          /* distance from the right edge */
-  bottom: 20px;         /* distance from the bottom edge */
-  width: 150px;         /* adjust size as needed */
-  height: auto;
-  border-radius: 10px;  /* rounded corners */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* subtle shadow */
-  z-index: 1000;        /* ensures it's on top of other content */
-  pointer-events: none; /* allows clicks to go through the image */
-  opacity: 0.9;         /* slightly transparent for style */
-}
-
