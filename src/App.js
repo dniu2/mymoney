@@ -107,6 +107,7 @@ function App() {
   const deleteGoal = (goalId) => {
     if (!window.confirm("Delete this goal? Contributions from expenses will also be removed.")) return;
 
+    // Remove contributions from expenses
     const updatedExpenses = expenses.map((exp) => {
       if (exp.contributions && exp.contributions[goalId]) {
         const { [goalId]: _, ...rest } = exp.contributions;
@@ -169,6 +170,7 @@ function App() {
     saveExpenses(filteredExpenses);
   };
 
+  // -------------------- COLLAPSE HANDLER --------------------
   const toggleCategory = (cat) => {
     setCollapsedCategories({
       ...collapsedCategories,
@@ -176,6 +178,7 @@ function App() {
     });
   };
 
+  // -------------------- RESET --------------------
   const resetAll = () => {
     if (!window.confirm("Reset all expenses, budgets, and goals?")) return;
     saveExpenses([]);
@@ -207,7 +210,7 @@ function App() {
     <div className={`app-container ${theme}`}>
       {/* Header */}
       <header>
-        <h1>💰 DERRICK GOATED WEBSITE</h1>
+        <h1>💰 MyMoneyOS v5</h1>
         <button className="settings-button" onClick={() => setSettingsOpen(true)}>⚙️</button>
       </header>
 
@@ -238,7 +241,6 @@ function App() {
               <button onClick={() => setChartType("pie")}>Pie Chart</button>
               <button onClick={() => setChartType("bar")}>Bar Chart</button>
             </div>
-
             {chartType === "pie" && expenses.length > 0 && (
               <PieChart width={500} height={300}>
                 <Pie
@@ -249,6 +251,8 @@ function App() {
                   cy="50%"
                   outerRadius={100}
                   label
+                  isAnimationActive={true}
+                  animationDuration={1000}
                 >
                   {categoryData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -258,7 +262,6 @@ function App() {
                 <Legend />
               </PieChart>
             )}
-
             {chartType === "bar" && (
               <BarChart width={500} height={300} data={barData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -289,7 +292,7 @@ function App() {
               );
             })}
 
-            {/* Budgets */}
+            {/* Category Budgets */}
             <h2>Budgets</h2>
             <div className="budgets-section">
               {Object.keys(budgets || {}).map((cat) => {
@@ -330,7 +333,7 @@ function App() {
               <button className="add-btn" onClick={addExpense}>Add</button>
             </div>
 
-            {/* Collapsible expenses */}
+            {/* Collapsible expenses by category */}
             {Object.keys(budgets || {}).map((cat) => {
               const catExpenses = expenses.filter(e => e.category === cat);
               if (catExpenses.length === 0) return null;
@@ -377,11 +380,7 @@ function App() {
         <button className={currentTab === "dashboard" ? "active" : ""} onClick={() => setCurrentTab("dashboard")}>Dashboard</button>
         <button className={currentTab === "expenses" ? "active" : ""} onClick={() => setCurrentTab("expenses")}>Expenses</button>
       </div>
-
-      {/* Ryan's Picture */}
-      <img src={`${process.env.PUBLIC_URL}/ryan.png`} alt="Ryan" className="ryan-picture" />
-
-    </div> // closes app-container
+    </div>
   );
 }
 
