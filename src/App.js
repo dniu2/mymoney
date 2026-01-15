@@ -380,6 +380,14 @@ function App() {
         <button className={currentTab === "dashboard" ? "active" : ""} onClick={() => setCurrentTab("dashboard")}>Dashboard</button>
         <button className={currentTab === "expenses" ? "active" : ""} onClick={() => setCurrentTab("expenses")}>Expenses</button>
       </div>
+
+      {/* Ryan's Picture */}
+<img
+  src={`${process.env.PUBLIC_URL}/ryan.png`}
+  alt="Ryan"
+  className="ryan-picture"
+/>
+</div>  // closes app-container  
     </div>
   );
 }
