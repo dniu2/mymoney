@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
+import {
+  PieChart, Pie, Cell, Tooltip, Legend,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid
+} from "recharts";
 import "./App.css";
 
 function App() {
   // -------------------- STATE --------------------
-  const [currentTab, setCurrentTab] = useState("dashboard"); // dashboard | expenses
+  const [currentTab, setCurrentTab] = useState("dashboard"); // dashboard | expenses | ryan
   const [expenses, setExpenses] = useState([]);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -107,7 +110,6 @@ function App() {
   const deleteGoal = (goalId) => {
     if (!window.confirm("Delete this goal? Contributions from expenses will also be removed.")) return;
 
-    // Remove contributions from expenses
     const updatedExpenses = expenses.map((exp) => {
       if (exp.contributions && exp.contributions[goalId]) {
         const { [goalId]: _, ...rest } = exp.contributions;
@@ -210,12 +212,14 @@ function App() {
     <div className={`app-container ${theme}`}>
       {/* Header */}
       <header>
-        <h1>💰 MyMoneyOS v5</h1>
+        <h1>💰 DERRICK GOATED WEBSITE</h1>
         <button className="settings-button" onClick={() => setSettingsOpen(true)}>⚙️</button>
       </header>
 
       {/* Settings Overlay */}
-      {settingsOpen && <div className="settings-overlay open" onClick={() => setSettingsOpen(false)}></div>}
+      {settingsOpen && (
+        <div className="settings-overlay open" onClick={() => setSettingsOpen(false)}></div>
+      )}
 
       {/* Settings Panel */}
       <div className={`settings-panel ${settingsOpen ? "open" : ""}`}>
@@ -230,8 +234,9 @@ function App() {
         <button onClick={() => setSettingsOpen(false)}>Close</button>
       </div>
 
-      {/* Tabs */}
+      {/* Tab Content */}
       <div className="tab-content">
+        {/* ---------------- DASHBOARD ---------------- */}
         {currentTab === "dashboard" && (
           <>
             <h2>Total Expenses: ${total.toFixed(2)}</h2>
@@ -241,6 +246,7 @@ function App() {
               <button onClick={() => setChartType("pie")}>Pie Chart</button>
               <button onClick={() => setChartType("bar")}>Bar Chart</button>
             </div>
+
             {chartType === "pie" && expenses.length > 0 && (
               <PieChart width={500} height={300}>
                 <Pie
@@ -262,6 +268,7 @@ function App() {
                 <Legend />
               </PieChart>
             )}
+
             {chartType === "bar" && (
               <BarChart width={500} height={300} data={barData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -292,11 +299,12 @@ function App() {
               );
             })}
 
-            {/* Category Budgets */}
+            {/* Budgets */}
             <h2>Budgets</h2>
             <div className="budgets-section">
               {Object.keys(budgets || {}).map((cat) => {
-                const spent = expenses.filter(e => e.category === cat).reduce((sum, e) => sum + e.amount, 0);
+                const spent = expenses.filter(e => e.category === cat)
+                  .reduce((sum, e) => sum + e.amount, 0);
                 const overBudget = spent > (budgets[cat] || 0);
                 return (
                   <div key={cat} className="budget-card">
@@ -320,7 +328,7 @@ function App() {
           </>
         )}
 
-        {/* Expenses Tab */}
+        {/* ---------------- EXPENSES ---------------- */}
         {currentTab === "expenses" && (
           <>
             <h2>Add Expense</h2>
@@ -333,12 +341,13 @@ function App() {
               <button className="add-btn" onClick={addExpense}>Add</button>
             </div>
 
-            {/* Collapsible expenses by category */}
+            {/* Collapsible Expenses by Category */}
             {Object.keys(budgets || {}).map((cat) => {
               const catExpenses = expenses.filter(e => e.category === cat);
               if (catExpenses.length === 0) return null;
               const collapsed = collapsedCategories[cat];
               const spent = catExpenses.reduce((sum, e) => sum + e.amount, 0);
+
               return (
                 <div key={cat} className="category-section">
                   <div className="category-header" onClick={() => toggleCategory(cat)}>
@@ -373,21 +382,33 @@ function App() {
             })}
           </>
         )}
+
+        {/* ---------------- RYAN TAB ---------------- */}
+        {currentTab === "ryan" && (
+          <div className="ryan-tab">
+            <img
+              src={`${process.env.PUBLIC_URL}/ryan.png`}
+              alt="Ryan"
+              style={{
+                width: "80%",
+                maxWidth: "600px",
+                height: "auto",
+                display: "block",
+                margin: "50px auto",
+                borderRadius: "15px",
+                boxShadow: "0 10px 20px rgba(0,0,0,0.3)",
+              }}
+            />
+          </div>
+        )}
       </div>
 
-      {/* Bottom Tab Bar */}
+      {/* ---------------- BOTTOM TABS ---------------- */}
       <div className="bottom-tabs">
         <button className={currentTab === "dashboard" ? "active" : ""} onClick={() => setCurrentTab("dashboard")}>Dashboard</button>
         <button className={currentTab === "expenses" ? "active" : ""} onClick={() => setCurrentTab("expenses")}>Expenses</button>
+        <button className={currentTab === "ryan" ? "active" : ""} onClick={() => setCurrentTab("ryan")}>Ryan</button>
       </div>
-
-      {/* Ryan's Picture */}
-  <img
-    src={`${process.env.PUBLIC_URL}/ryan.png`}
-    alt="Ryan"
-    className="ryan-picture"
-  />
-        
     </div>
   );
 }
